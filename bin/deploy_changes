@@ -1,0 +1,49 @@
+#!/usr/bin/env ruby
+
+$LOAD_PATH.unshift File.join(File.dirname(__FILE__), *%w[.. lib])
+
+require 'pry'
+require 'deploy_changes'
+
+def usage
+  puts <<~EOS
+  Usage:
+
+    deploy_changes mark-latest [optional sha1]
+      - Run this after a successful deploy to mark the latest deploy SHA
+
+    deploy_changes changed [file pattern]
+      - Exits with 0 if a file pattern has changed since the last time we ran mark-latest.
+      - Also exits with 0 if we haven't ran mark-latest yet
+      - Exits with 1 if the file pattern has not changed
+  EOS
+end
+
+command = ARGV.first
+
+repo = Rugged::Repository.discover(".")
+commit = DeployChanges::Commit.new(repo)
+
+case command
+when 'mark-latest'
+  commit.write_head!(ARGV[1])
+  exit 0
+when 'changed'
+  if ARGV.size != 2
+    puts "Invalid"
+    usage
+    exit 1
+  end
+
+  path = DeployChanges::Path.new(repo, commit.last_commit)
+
+  if path.changed?(ARGV[1])
+    exit 0
+  else
+    exit 1
+  end
+else
+  usage
+
+  exit 1
+end
