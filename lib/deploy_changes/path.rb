@@ -10,6 +10,8 @@ module DeployChanges
     end
 
     def changed?(path)
+      return true if last_sha1.nil?
+
       diff = repo.index.diff(last_commit)
 
       diff.each_delta do |delta|

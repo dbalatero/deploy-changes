@@ -2,7 +2,7 @@ PATH
   remote: .
   specs:
     deploy_changes (0.1.0)
-      rugged
+      rugged (~> 0.26)
 
 GEM
   remote: https://rubygems.org/
@@ -35,7 +35,7 @@ PLATFORMS
 DEPENDENCIES
   bundler (~> 1.16)
   deploy_changes!
-  pry
+  pry (~> 0.11)
   rake (~> 10.0)
   rspec (~> 3.0)
 

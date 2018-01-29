@@ -15,6 +15,8 @@ module DeployChanges
     end
 
     def last_commit
+      return unless File.exist?(last_deploy_commit_file)
+
       File.read(last_deploy_commit_file).strip
     end
 
