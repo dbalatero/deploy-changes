@@ -1,12 +1,2 @@
-/.bundle/
-/.yardoc
-/_yardoc/
-/coverage/
-/doc/
-/pkg/
-/spec/reports/
-/tmp/
-
-# rspec failure tracking
+.deploy_changes
 .rspec_status
-tmp
