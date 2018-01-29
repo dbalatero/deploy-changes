@@ -27,6 +27,8 @@ commit = DeployChanges::Commit.new(repo)
 case command
 when 'mark-latest'
   commit.write_head!(ARGV[1])
+
+  puts "Marked latest commit as last deploy!"
   exit 0
 when 'changed'
   if ARGV.size != 2
